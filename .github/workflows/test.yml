@@ -1,13 +1,26 @@
-name: Test
+name: Test System Info Script
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ feature/system-info ]
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
+      # Lae kood GitHub repo'st
       - uses: actions/checkout@v4
-      - run: |
+
+      # Testi ja käivita skripti
+      - name: Run system info script
+        run: |
+          echo "Checking syntax..."
           bash -n system/info/system_info.sh
+          echo "Making script executable..."
           chmod +x system/info/system_info.sh
+          echo "Running script..."
           ./system/info/system_info.sh
+
